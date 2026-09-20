@@ -24,8 +24,6 @@ const server = http.createServer((req, res) => {
 
     const url = req.url;
     const method = req.method;
-
-    // Home
     if (url === '/' && method === 'GET') {
         res.statusCode = 200;
         res.end(JSON.stringify({
@@ -33,7 +31,7 @@ const server = http.createServer((req, res) => {
         }));
     }
 
-    // System
+    
     else if (url === '/sys' && method === 'GET') {
         res.statusCode = 200;
         res.end(JSON.stringify({
@@ -47,7 +45,7 @@ const server = http.createServer((req, res) => {
         res.end(JSON.stringify(userdata));
     }
 
-    // Single user
+    
     else if (url.startsWith('/users/') && method === 'GET') {
 
         const id = url.split('/')[2];
