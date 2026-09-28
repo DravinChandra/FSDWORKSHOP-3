@@ -1,5 +1,5 @@
 const fs = require("node:fs");
-.
+
 function createFile() {
     fs.writeFile("data.txt", "Hello World!", (err) => {
         if (err) {
