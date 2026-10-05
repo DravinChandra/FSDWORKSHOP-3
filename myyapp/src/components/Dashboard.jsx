@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+
 function Dashboard() {
+  const user = JSON.parse(localStorage.getItem("user"));
   return (
     <div className="bg-light min-vh-100">
 
@@ -21,7 +23,7 @@ function Dashboard() {
 
         <div className="mb-4">
           <h2 className="fw-bold">
-            Welcome, Dravin 👋
+            Welcome, {user?.name}👋
           </h2>
 
           <p className="text-muted">

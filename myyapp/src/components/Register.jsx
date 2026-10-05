@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Register() {
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,16 +14,13 @@ function Register() {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
-
   };
 
-  const handleRegister = (e) => {
-
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
@@ -31,13 +28,31 @@ function Register() {
       return;
     }
 
-    console.log(formData);
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/register",
+        formData
+      );
 
-    alert("Registration Successful");
+      console.log(response.data);
+      const user = response.data.user;
 
-    // Register ke baad Dashboard par jao
-    navigate("/dashboard");
+    localStorage.setItem("user", JSON.stringify(user));
 
+
+      alert("Registration Successful");
+
+      navigate("/dashboard");
+
+    } catch (error) {
+      console.log(error);
+
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("Server is not running");
+      }
+    }
   };
 
   return (
@@ -51,12 +66,8 @@ function Register() {
 
         <form onSubmit={handleRegister}>
 
-          {/* Name */}
           <div className="mb-3">
-
-            <label className="form-label">
-              Name
-            </label>
+            <label className="form-label">Name</label>
 
             <input
               type="text"
@@ -67,15 +78,10 @@ function Register() {
               onChange={handleChange}
               required
             />
-
           </div>
 
-          {/* Email */}
           <div className="mb-3">
-
-            <label className="form-label">
-              Email
-            </label>
+            <label className="form-label">Email</label>
 
             <input
               type="email"
@@ -86,15 +92,10 @@ function Register() {
               onChange={handleChange}
               required
             />
-
           </div>
 
-          {/* Username */}
           <div className="mb-3">
-
-            <label className="form-label">
-              Username
-            </label>
+            <label className="form-label">Username</label>
 
             <input
               type="text"
@@ -105,15 +106,10 @@ function Register() {
               onChange={handleChange}
               required
             />
-
           </div>
 
-          {/* Password */}
           <div className="mb-3">
-
-            <label className="form-label">
-              Password
-            </label>
+            <label className="form-label">Password</label>
 
             <input
               type="password"
@@ -124,12 +120,9 @@ function Register() {
               onChange={handleChange}
               required
             />
-
           </div>
 
-          {/* Confirm Password */}
           <div className="mb-3">
-
             <label className="form-label">
               Confirm Password
             </label>
@@ -143,10 +136,8 @@ function Register() {
               onChange={handleChange}
               required
             />
-
           </div>
 
-          {/* Register Button */}
           <button
             type="submit"
             className="btn btn-success w-100"
@@ -156,15 +147,11 @@ function Register() {
 
         </form>
 
-        {/* Login Link */}
         <p className="text-center mt-3 mb-0">
-
           Already have an account?{" "}
-
           <Link to="/login">
             Login
           </Link>
-
         </p>
 
       </div>
