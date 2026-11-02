@@ -7,16 +7,16 @@ const PORT = 4000;
 app.use(cors());
 app.use(express.json());
 
-app.post("/signup", (req, res) => {
-    const { name, email, password } = req.body;
+app.post("/register", (req, res) => {
+    const { name, rollno } = req.body;
 
-    console.log(name, email, password);
+    console.log(name, rollno);
 
     res.status(201).json({
         message: "Signup successful",
         user: {
             name,
-            email
+            rollno
         }
     });
 });

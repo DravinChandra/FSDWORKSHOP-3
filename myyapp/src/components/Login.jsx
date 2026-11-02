@@ -28,6 +28,11 @@ function Login() {
 
       console.log(response.data);
 
+    const user = response.data.user;
+
+    // User data browser me save
+    localStorage.setItem("user", JSON.stringify(user));
+
       alert("Login Successful");
 
       navigate("/dashboard");
